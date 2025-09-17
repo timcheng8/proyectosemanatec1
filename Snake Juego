@@ -3,6 +3,8 @@ from turtle import *
 
 from freegames import square, vector
 
+colors = ['blue', 'green', 'purple', 'ornage', 'brown']
+
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
@@ -22,6 +24,12 @@ def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def move_food():
+    direction = choice([vector(10,0), vector(-10,0), vector(0,10), vector(0,-10)])
+    new_pos = food + direction
+    if inside(new_pos):
+        food.move(direction)
+    ontimer(move_food, 500)
 
 def move():
     """Move snake forward one segment."""
