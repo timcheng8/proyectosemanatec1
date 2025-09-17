@@ -6,13 +6,17 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+speed = 100
 
+snake_color = choice(colors)
+food_color = choice([c for c in colors if c != snake+color])
+
+obstacle = vector(randrange(-15, 15) * 10, rand range(-15, 15) * 10)
 
 def change(x, y):
     """Change snake direction."""
     aim.x = x
     aim.y = y
-
 
 def inside(head):
     """Return True if head inside boundaries."""
