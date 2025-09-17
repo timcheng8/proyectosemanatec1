@@ -145,8 +145,8 @@ def move():
     for point, course in ghosts:
         if abs(pacman - point) < 20:
             return
-    if state['score'] % 30 == 0 and state['score'] > 0:
-        ghost_speed += 1
+    if state['score'] % 25== 0 and state['score'] > 0:
+        ghost_speed += 1.5
 
 
     ontimer(move, 100)
