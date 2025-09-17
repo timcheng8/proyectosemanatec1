@@ -1,6 +1,5 @@
-from random import randrange
+from random import randrange, choice
 from turtle import *
-
 from freegames import square, vector
 
 colors = ['blue', 'green', 'purple', 'orange', 'brown']
@@ -12,36 +11,43 @@ speed = 100
 
 snake_color = choice(colors)
 food_color = choice([c for c in colors if c != snake_color])
+'''Tim'''
 
 obstacle = vector(randrange(-15, 15) * 10, randrange(-15, 15) * 10)
+
 
 def change(x, y):
     """Change snake direction."""
     aim.x = x
     aim.y = y
 
+
 def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
 def move_food():
-    direction = choice([vector(10,0), vector(-10,0), vector(0,10), vector(0,-10)])
+    """Mueve la comida aleatoriamente un paso dentro de la ventana."""
+    direction = choice([vector(10, 0), vector(-10, 0),
+                        vector(0, 10), vector(0, -10)])
     new_pos = food + direction
     if inside(new_pos):
         food.move(direction)
-    ontimer(move_food, 500)
+    ontimer(move_food, 500)  # cada 0.5s
+'''Paulina'''
 
 def move_obstacle():
-    """Move obstacle to random position avoiding snake."""
-global obstacle
-     while True:
-        new_pos = vector(randrange(-20, 15) * 10,
+    """Mueve obstáculo aleatoriamente cada 5s evitando snake y comida."""
+    global obstacle
+    while True:
+        new_pos = vector(randrange(-15, 15) * 10,
                          randrange(-15, 15) * 10)
         if new_pos not in snake and new_pos != food:
             obstacle = new_pos
             break
-    ontimer(move_obstacle, 5000)  
-
+    ontimer(move_obstacle, 5000)
+'''Delia'''
 
 def move():
     """Move snake forward one segment."""
@@ -49,18 +55,20 @@ def move():
     head = snake[-1].copy()
     head.move(aim)
 
+    # Colisiones
     if not inside(head) or head in snake or head == obstacle:
         square(head.x, head.y, 9, 'red')
         update()
         return
 
     snake.append(head)
-
+'''Maria'''
+    # Si come
     if head == food:
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        speed = max(30, speed - 5)    #delia
+        speed = max(30, speed - 5)  # más rápido cada comida
     else:
         snake.pop(0)
 
@@ -71,12 +79,13 @@ def move():
 
     square(food.x, food.y, 9, food_color)
 
-    square(obstacle.x, obstacle.y,9,'red')
+    square(obstacle.x, obstacle.y, 9, 'red')
 
     update()
-    ontimer(move, 100)
+    ontimer(move, speed)
 
 
+# Configuración inicial
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
