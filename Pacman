@@ -100,6 +100,7 @@ def world():
 
 def move():
     """Move pacman and all ghosts."""
+    global ghost_speed
     writer.undo()
     writer.write(state['score'])
 
