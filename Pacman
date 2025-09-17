@@ -40,8 +40,6 @@ tiles = [
 ]
 
 # fmt: on
-###Tim 
-
 def square(x, y):
     """Draw square using path at (x, y)."""
     path.up()
