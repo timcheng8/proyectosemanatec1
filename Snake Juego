@@ -40,7 +40,7 @@ def move_obstacle():
         if new_pos not in snake and new_pos != food:
             obstacle = new_pos
             break
-    ontimer(move_obstacle, 5000)  # Cambia cada 5 segundos
+    ontimer(move_obstacle, 5000)  
 
 
 def move():
@@ -59,15 +59,19 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        speed = max(30, speed - 5)    #delia
     else:
         snake.pop(0)
 
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, 'snake_color')
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, 'food_color')
+
+    square(obstacle.x, obstacle.y,9,'red')
+
     update()
     ontimer(move, 100)
 
