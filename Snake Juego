@@ -2,17 +2,19 @@ from random import randrange, choice
 from turtle import *
 from freegames import square, vector
 
+# Colores permitidos (sin rojo)
 colors = ['blue', 'green', 'purple', 'orange', 'brown']
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
-speed = 100
+speed = 100  # Velocidad inicial (ms)
 
+# Selección aleatoria de colores distintos
 snake_color = choice(colors)
 food_color = choice([c for c in colors if c != snake_color])
-# Tim
 
+# Obstacle inicial
 obstacle = vector(randrange(-15, 15) * 10, randrange(-15, 15) * 10)
 
 
@@ -28,18 +30,17 @@ def inside(head):
 
 
 def move_food():
-    """Mueve la comida aleatoriamente un paso dentro de la ventana."""
+    """Move food randomly one step inside the window."""
     direction = choice([vector(10, 0), vector(-10, 0),
                         vector(0, 10), vector(0, -10)])
     new_pos = food + direction
     if inside(new_pos):
         food.move(direction)
-    ontimer(move_food, 500)  # cada 0.5s
-# Paulina
+    ontimer(move_food, 500)  # Se mueve cada medio segundo
 
 
 def move_obstacle():
-    """Mueve obstáculo aleatoriamente cada 5s evitando snake y comida."""
+    """Move obstacle to random position avoiding snake."""
     global obstacle
     while True:
         new_pos = vector(randrange(-15, 15) * 10,
@@ -47,8 +48,7 @@ def move_obstacle():
         if new_pos not in snake and new_pos != food:
             obstacle = new_pos
             break
-    ontimer(move_obstacle, 5000)
-# Delia
+    ontimer(move_obstacle, 5000)  # Cambia cada 5 segundos
 
 
 def move():
@@ -57,30 +57,33 @@ def move():
     head = snake[-1].copy()
     head.move(aim)
 
-    # Colisiones
     if not inside(head) or head in snake or head == obstacle:
         square(head.x, head.y, 9, 'red')
         update()
         return
 
     snake.append(head)
-    # Maria
-    # Si come
+
     if head == food:
         print('Snake:', len(snake))
+        # Colocar comida en posición aleatoria
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        speed = max(30, speed - 5)  # más rápido cada comida
+        # Aumentar velocidad (no bajar demasiado)
+        speed = max(30, speed - 5)
     else:
         snake.pop(0)
 
     clear()
 
+    # Dibujar snake
     for body in snake:
         square(body.x, body.y, 9, snake_color)
 
+    # Dibujar comida
     square(food.x, food.y, 9, food_color)
 
+    # Dibujar obstáculo
     square(obstacle.x, obstacle.y, 9, 'red')
 
     update()
