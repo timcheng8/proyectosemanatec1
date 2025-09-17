@@ -70,4 +70,33 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        speed = max(30, speed - 5)  # más r
+        speed = max(30, speed - 5)  # más rápido cada comida
+    else:
+        snake.pop(0)
+
+    clear()
+
+    for body in snake:
+        square(body.x, body.y, 9, snake_color)
+
+    square(food.x, food.y, 9, food_color)
+
+    square(obstacle.x, obstacle.y, 9, 'red')
+
+    update()
+    ontimer(move, speed)
+
+
+# Configuración inicial
+setup(420, 420, 370, 0)
+hideturtle()
+tracer(False)
+listen()
+onkey(lambda: change(10, 0), 'Right')
+onkey(lambda: change(-10, 0), 'Left')
+onkey(lambda: change(0, 10), 'Up')
+onkey(lambda: change(0, -10), 'Down')
+move_food()
+move_obstacle()
+move()
+done()
