@@ -8,11 +8,12 @@ path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+ghost_speed= 5
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-180, 160), vector(ghost_speed, 0)],
+    [vector(-180, -160), vector(0, ghost_speed)],
+    [vector(100, 160), vector(0, -ghost_speed)],
+    [vector(100, -160), vector(-ghost_speed, 0)],
 ]
 # fmt: off
 tiles = [
@@ -125,10 +126,10 @@ def move():
             point.move(course)
         else:
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(ghost_speed, 0),
+                vector(-ghost_speed, 0),
+                vector(0, ghost_speed),
+                vector(0, -ghost_speed),
             ]
             plan = choice(options)
             course.x = plan.x
@@ -143,6 +144,9 @@ def move():
     for point, course in ghosts:
         if abs(pacman - point) < 20:
             return
+    if state['score'] % 50 == 0 and state['score'] > 0:
+        ghost_speed += 1
+
 
     ontimer(move, 100)
 
