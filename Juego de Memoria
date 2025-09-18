@@ -80,7 +80,7 @@ def draw():
     update()
     ontimer(draw, 100)
 
-
+# ---------------- Maria ----------------
 shuffle(tiles)
 setup(420, 420, 370, 0)
 addshape(car)
