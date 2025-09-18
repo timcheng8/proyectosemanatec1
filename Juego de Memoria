@@ -75,9 +75,17 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y+5)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
+        up()
+        goto(-190,180)
+        color('blue')
+        write(f"Taps:{state['taps']}",font=('Arial',16,'normal'))
+    if all ( not h for h in hide):
+        goto (0,0)
+        color ('green')
+        write (" ¡ganaste !, align='center', font = ('Arial',24,bold )
 
     update()
     ontimer(draw, 100)
