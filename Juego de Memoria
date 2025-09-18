@@ -1,11 +1,21 @@
+# -------- Tim --------
 from random import *
 from turtle import *
 
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
-state = {'mark': None}
+
+# --- Innovación: usar emojis en lugar de dígitos ---
+# 32 emojis únicos
+emojis = ['🍎', '🍌', '🍇', '🍉', '🍊', '🍍', '🥝', '🍓',
+          '🥥', '🍑', '🍒', '🍐', '🥭', '🍋', '🫐', '🍈',
+          '🥑', '🌽', '🥕', '🍄', '🥦', '🥬', '🧄', '🧅',
+          '🥔', '🍠', '🥜', '🌰', '🥨', '🧀', '🍗', '🥩']
+
+tiles = emojis * 2   
+
+state = {'mark': None, 'taps': 0}
 hide = [True] * 64
 
 
@@ -25,6 +35,7 @@ def square(x, y):
 def index(x, y):
     """Convert (x, y) coordinates to tiles index."""
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
+
 
 
 def xy(count):
