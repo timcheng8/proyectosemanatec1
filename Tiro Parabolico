@@ -68,7 +68,7 @@ def move():
 
     ontimer(move, 50)
 
-
+# ---------------- María ----------------
 setup(420, 420, 370, 0)
 hideturtle()
 up()
