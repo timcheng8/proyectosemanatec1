@@ -73,3 +73,19 @@ def move_enemies():
         elif snake[-1].x > e.x: e.x += 10
         if snake[-1].y < e.y: e.y -= 10
         elif snake[-1].y > e.y: e.y += 10
+
+# -------------------------
+# BORDES
+# -------------------------
+def draw_border():
+    """Dibuja un borde blanco alrededor del tablero."""
+    penup()
+    goto(-200, -200)
+    pendown()
+    color("white")
+    for _ in range(4):
+        forward(400)
+        left(90)
+    penup()
+
+
