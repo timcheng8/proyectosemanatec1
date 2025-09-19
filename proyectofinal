@@ -1,0 +1,20 @@
+from random import randrange
+from turtle import *
+from freegames import square, vector
+
+# -------------------------
+# CONFIG GLOBALES
+# -------------------------
+food = vector(0, 0)
+snake = [vector(10, 0)]
+aim = vector(10, 0)
+score = 0
+game_mode = None    # 'score', 'time', 'infinite', 'survival'
+snake_color = "white"
+enemies = []
+speed = 120
+game_over = False
+lose_reason = ""
+state = "menu"      # 'menu', 'color', 'game', 'gameover'
+buttons = []        # [(x1,y1,x2,y2, action)]
+
