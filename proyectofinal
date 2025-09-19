@@ -31,4 +31,23 @@ def draw_button(cx, cy, w, h, text, action):
     x1, y1 = cx - w/2, cy - h/2
     x2, y2 = cx + w/2, cy + h/2
 
+penup(); goto(x1, y1); pendown()
+    color("white")
+    for _ in range(2):
+        forward(w); left(90); forward(h); left(90)
+    penup()
+    goto(cx, cy - 8)  # texto centrado aprox.
+    write(text, align="center", font=("Courier", 12, "normal"))
 
+    buttons.append((x1, y1, x2, y2, action))
+
+def clear_buttons():
+    global buttons
+    buttons = []
+
+def handle_click(x, y):
+    """Handler global de clics: revisa si tocaste algún botón activo."""
+    for (x1, y1, x2, y2, action) in buttons:
+        if x1 <= x <= x2 and y1 <= y <= y2:
+            action()
+            break
