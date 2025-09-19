@@ -141,3 +141,19 @@ def show_restart_screen():
     listen(); update()
     onscreenclick(handle_click)
 
+# -------------------------
+# ACCIONES DE MENÚ
+# -------------------------
+def set_mode(mode):
+    global game_mode
+    game_mode = mode
+    show_color_menu()
+
+def set_color_and_start(color):
+    global snake_color, state
+    snake_color = color
+    state = "game"
+    clear(); clear_buttons()
+    update()
+    move()  # arranca el juego
+
