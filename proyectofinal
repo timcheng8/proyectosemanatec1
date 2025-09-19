@@ -88,4 +88,25 @@ def draw_border():
         left(90)
     penup()
 
+# -------------------------
+# PANTALLAS
+# -------------------------
+def show_menu():
+    global state
+    clear(); clear_buttons()
+    penup(); color("white")
+    goto(0, 130); write("=== SNAKE RETRO ===", align="center", font=("Courier", 18, "bold"))
+    goto(0, 95);  write("Elige modo:", align="center", font=("Courier", 14, "normal"))
+
+    # Botones (modo)
+    draw_button(0, 60, 360, 28, "Puntaje — clásico infinito", lambda: set_mode("score"))
+    draw_button(0, 25, 360, 28, "Contrarreloj — 90s máxima puntuación", lambda: set_mode("time"))
+    draw_button(0, -10, 360, 28, "Infinito (Pac-Man) — atraviesa paredes, +velocidad al comer", lambda: set_mode("infinite"))
+    draw_button(0, -45, 360, 28, "Survival — enemigos te persiguen", lambda: set_mode("survival"))
+
+    goto(0, -95); write("Haz clic en un modo para continuar", align="center", font=("Courier", 12, "normal"))
+
+    listen(); update()
+    onscreenclick(handle_click)
+
 
