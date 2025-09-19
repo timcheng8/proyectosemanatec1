@@ -108,5 +108,36 @@ def show_menu():
 
     listen(); update()
     onscreenclick(handle_click)
+def show_color_menu():
+    global state
+    clear(); clear_buttons()
+    penup(); color("white")
+    goto(0, 90); write("Elige color de la serpiente", align="center", font=("Courier", 16, "bold"))
 
+    draw_button(0, 40, 220, 28, "Blanco", lambda: set_color_and_start("white"))
+    draw_button(0, 5, 220, 28, "Verde neón", lambda: set_color_and_start("lime"))
+    draw_button(0, -30, 220, 28, "Rojo", lambda: set_color_and_start("red"))
+
+    goto(0, -80); write("Haz clic en un color", align="center", font=("Courier", 12, "normal"))
+
+    state = "color"
+    listen(); update()
+    onscreenclick(handle_click)
+
+def show_restart_screen():
+    global state, game_over
+    clear(); clear_buttons()
+    penup(); color("white")
+    goto(0, 60);  write(f"Has perdido: {lose_reason}", align="center", font=("Courier", 14, "normal"))
+    goto(0, 30);  write(f"Score final: {score}", align="center", font=("Courier", 14, "normal"))
+
+    draw_button(-60, -20, 100, 30, "   Sí   ", restart_game)
+    draw_button( 60, -20, 100, 30, "   No   ", exit_game)
+
+    goto(0, -70); write("Haz clic en un botón (o usa S / N)", align="center", font=("Courier", 12, "normal"))
+
+    state = "gameover"
+    game_over = True
+    listen(); update()
+    onscreenclick(handle_click)
 
