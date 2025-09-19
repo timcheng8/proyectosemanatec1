@@ -18,3 +18,17 @@ lose_reason = ""
 state = "menu"      # 'menu', 'color', 'game', 'gameover'
 buttons = []        # [(x1,y1,x2,y2, action)]
 
+# -------------------------
+# UTILIDAD UI
+# -------------------------
+def set_vintage_style():
+    bgcolor("black")
+    pencolor("white")
+
+def draw_button(cx, cy, w, h, text, action):
+    """Dibuja un botón centrado en (cx,cy) y lo registra para clic."""
+    global buttons
+    x1, y1 = cx - w/2, cy - h/2
+    x2, y2 = cx + w/2, cy + h/2
+
+
