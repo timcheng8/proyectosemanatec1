@@ -155,5 +155,5 @@ def set_color_and_start(color):
     state = "game"
     clear(); clear_buttons()
     update()
-    move()  # arranca el juego
+    move() 
 
