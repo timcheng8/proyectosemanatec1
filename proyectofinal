@@ -182,5 +182,30 @@ def exit_game():
     write("Gracias por jugar", align="center", font=("Courier", 16, "normal"))
     update()
     ontimer(bye, 1500)
+# -------------------------
+# JUEGO
+# -------------------------
+def move():
+    global score, speed, lose_reason, game_over
+    if state != "game" or game_over:
+        return
+
+    head = snake[-1].copy()
+    head.move(aim)
+
+    # Modo Infinito (Pac-Man)
+    if game_mode == "infinite":
+        if head.x > 190: head.x = -190
+        if head.x < -190: head.x = 190
+        if head.y > 190: head.y = -190
+        if head.y < -190: head.y = 190
+    else:
+        if not inside(head):
+            square(head.x, head.y, 9, 'red')
+            update()
+            lose_reason = "Te saliste del tablero."
+            show_restart_screen()
+            return
+
 
 
