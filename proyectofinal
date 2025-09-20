@@ -157,3 +157,30 @@ def set_color_and_start(color):
     update()
     move() 
 
+# -------------------------
+# REINICIO / SALIDA
+# -------------------------
+def restart_game():
+    global food, snake, aim, score, enemies, speed, game_over, state
+    if state != "gameover":
+        return
+    food = vector(0, 0)
+    snake = [vector(10, 0)]
+    aim = vector(10, 0)
+    score = 0
+    enemies = []
+    speed = 120
+    game_over = False
+    state = "menu"
+    show_menu()
+
+def exit_game():
+    if state != "gameover":
+        return
+    clear(); clear_buttons()
+    penup(); goto(0, 0); color("white")
+    write("Gracias por jugar", align="center", font=("Courier", 16, "normal"))
+    update()
+    ontimer(bye, 1500)
+
+
