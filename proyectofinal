@@ -207,5 +207,93 @@ def move():
             show_restart_screen()
             return
 
+    # Colisiones
+    if head in snake:
+        square(head.x, head.y, 9, 'red')
+        update()
+        lose_reason = "Chocaste contigo mismo."
+        show_restart_screen()
+        return
+
+    if head in enemies:
+        square(head.x, head.y, 9, 'red')
+        update()
+        lose_reason = "Un enemigo te atrapó."
+        show_restart_screen()
+        return
+
+    snake.append(head)
+
+    if head == food:
+        score += 1
+        food.x = randrange(-19, 19) * 10
+        food.y = randrange(-19, 19) * 10
+        # Aumentar velocidad en modo infinito
+        if game_mode == "infinite" and speed > 40:
+            speed -= 5
+        # En survival, generar enemigos gradualmente
+        if game_mode == "survival" and len(enemies) < 5:
+            enemies.append(vector(randrange(-19, 19) * 10,
+                                  randrange(-19, 19) * 10))
+    else:
+        snake.pop(0)
+
+    if game_mode == "survival":
+        move_enemies()
+
+    clear()
+    # --- Dibuja el borde primero ---
+    draw_border()
+
+    # Serpiente
+    for body in snake:
+        square(body.x, body.y, 9, snake_color)
+    # Comida
+    square(food.x, food.y, 9, 'green')
+    # Enemigos
+    if game_mode == "survival":
+        for e in enemies:
+            square(e.x, e.y, 9, 'red')
+
+    # HUD
+    penup(); goto(-190, 180); color("white")
+    write(f"Score: {score}", font=("Courier", 14, "normal"))
+
+    update()
+    ontimer(move, speed)
+
+# -------------------------
+# MAIN (ventana y bindings)
+# -------------------------
+setup(420, 420, 370, 0)
+screen = getscreen()
+hideturtle()
+screen.tracer(0)      # usamos update() manual
+set_vintage_style()
+listen()
+
+# Movimiento (teclado durante el juego)
+screen.onkeypress(lambda: change(10, 0), 'Right')
+screen.onkeypress(lambda: change(-10, 0), 'Left')
+screen.onkeypress(lambda: change(0, 10), 'Up')
+screen.onkeypress(lambda: change(0, -10), 'Down')
+# WASD como respaldo
+screen.onkeypress(lambda: change(-10, 0), 'a')
+screen.onkeypress(lambda: change(10, 0), 'd')
+screen.onkeypress(lambda: change(0, 10), 'w')
+screen.onkeypress(lambda: change(0, -10), 's')
+
+# Reinicio / salida en pantalla de derrota (también clic)
+screen.onkeypress(restart_game, 'S')
+screen.onkeypress(restart_game, 's')
+screen.onkeypress(exit_game, 'N')
+screen.onkeypress(exit_game, 'n')
+
+show_menu()
+done()
+
+
+
+
 
 
